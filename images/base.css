@@ -6,6 +6,8 @@ ol,ul {list-style:none;}
 li{list-style-type:none;}
 img{vertical-align:top;border:0;}
 h1,h2,h3,h4,h5,h6{font-size:inherit; font-weight:normal;}
+a{color:#333;text-decoration:none;transition-timing-function:ease esae;transition-duration:0.4s, 0.5s;}
+a:hover{color:#047FB3;}
 address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
 .hx a,.hx em,.fB{font-weight:bold;}
 .clr{min-height:1%;_height:1%;}
@@ -22,4 +24,7 @@ body{font:12px/1.5 "Microsoft Yahei",Arial,Helvetica,sans-serif;color:#333;backg
 /*首页*/
 .floor{margin-top:30px;width:1200px;overflow:hidden;}
 .f-list{width:110%;}
-.f-list li{float:left;border-bottom:1px solid #F4F4F4;border-right:1px solid #F4F4F4;width:259px;height:259px;padding:10px;background:#FFF;margin-right:26px;}
+.f-list li{float:left;border-bottom:1px solid #F4F4F4;border-right:1px solid #F4F4F4;width:260px;padding:10px;background:#FFF;margin-right:25px;box-shadow:0 2px 1px rgba(0, 0, 0, 0.2);}
+.f-name{padding-top:8px;font-size:16px;color:#333;font-weight:bold;height:24px;line-height:24px;overflow:hidden;}
+.f-time,
+.f-ver{padding-top:3px;color:#999;}

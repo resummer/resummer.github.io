@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>APP拖动</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+body{overflow-x:hidden;overflow-y:hidden;height:100%;} 
+.clr{min-height:1%;_height:1%;}
+.clr:after{clear:both;content:".";overflow:hidden;height:0;display:block;}
+.wrap{position:absolute;width:100%;height:100%;z-index:1;left:0;top:0;background:url("bg.jpg") no-repeat 50% 50%;height:100%;}
+.phone-pos{width:504px;height:504px;position:absolute;left:50%;top:50%;margin-left:-252px;margin-top:-252px;}
+.phone-box{width:504px;margin:0 auto;position:relative;z-index:1;height:504px;}
+.phone-box ul{width:504px;height:504px;}
+.phone-box li{width:128px;height:128px;position:absolute;z-index:1;cursor:pointer;}
+.phone-box li .column{position:relative;z-index:1;}
+.phone-box li .ico-shadow,
+.phone-box li .ico{width:128px;height:128px;position:absolute;z-index:1;background-repeat:no-repeat;background-position:0 0;top:0;left:0;}
+.phone-box li .ico{z-index:2;}
+.phone-box li .ico-shadow{z-index:1;left:0;top:0;opacity:0.35;filter:alpha(opacity=35);display:none;}
+.phone-box .item1{left:20px;top:20px;}
+.phone-box .item2{left:188px;top:20px;}
+.phone-box .item3{left:356px;top:20px;}
+.phone-box .item4{left:20px;top:188px;}
+.phone-box .item5{left:188px;top:188px;}
+.phone-box .item6{left:356px;top:188px;}
+.phone-box .item7{left:20px;top:356px;}
+.phone-box .item8{left:188px;top:356px;}
+.phone-box .item9{left:356px;top:356px;}
+.phone-box .item1 .ico,
+.phone-box .item1 .ico-shadow {background-image:url("1.png");}
+.phone-box .item2 .ico,
+.phone-box .item2 .ico-shadow {background-image:url("2.png");}
+.phone-box .item3 .ico,
+.phone-box .item3 .ico-shadow {background-image:url("3.png");}
+.phone-box .item4 .ico,
+.phone-box .item4 .ico-shadow {background-image:url("4.png");}
+.phone-box .item5 .ico,
+.phone-box .item5 .ico-shadow {background-image:url("5.png");}
+.phone-box .item6 .ico,
+.phone-box .item6 .ico-shadow {background-image:url("6.png");}
+.phone-box .item7 .ico,
+.phone-box .item7 .ico-shadow {background-image:url("7.png");}
+.phone-box .item8 .ico,
+.phone-box .item8 .ico-shadow {background-image:url("8.png");}
+.phone-box .item9 .ico,
+.phone-box .item9 .ico-shadow {background-image:url("9.png");}
+</style>
+<script>
+function windowSize(){
+	document.body.style.height=document.documentElement.clientHeight+'px';
+	document.body.style.width=document.documentElement.clientWidth+'px';	
+}
+function getPos(obj){
+	var l=0;
+	var t=0;
+	while(obj){
+		l+=obj.offsetLeft;
+		t+=obj.offsetTop;
+		obj=obj.offsetParent;
+	}
+	return{left:l,top:t};
+}
+function getStyle(obj,name){
+	if(obj.currentStyle){
+		return obj.currentStyle[name];
+	}else{
+	    return getComputedStyle(obj,false)[name];
+	}
+}
+function drag(obj){
+	var oBox=document.getElementById('phone_box');
+	var oBoxL=getPos(oBox).left;
+	var oBoxT=getPos(oBox).top;
+
+	window.onresize=window.onscroll=function(){
+		winWidth=document.documentElement.clientWidth;
+		winHeight=document.documentElement.clientHeight;
+		oBoxL=getPos(oBox).left;
+		oBoxT=getPos(oBox).top;
+	}		
+
+	var aLi=oBox.getElementsByTagName('li');	
+
+	for(i=0;i<aLi.length;i++){
+
+		aLi[i].index=i;
+
+		aLi[i].onmousedown=function(ev){
+			var thisNum=this.index;
+			var winWidth=document.documentElement.clientWidth;
+			var winHeight=document.documentElement.clientHeight;				
+			var oEvent=ev||event;
+			var clickX=oEvent.clientX;
+			var clickY=oEvent.clientY;		
+			var oldL=aLi[this.index].offsetLeft;
+			var oldT=aLi[this.index].offsetTop;
+			var objW=aLi[this.index].offsetWidth;
+			var objH=aLi[this.index].offsetHeight;
+
+			this.style.zIndex=2;
+			this.children[0].children[1].style.display='block';
+			this.children[0].children[0].style.top='-5px';
+			this.children[0].children[0].style.left='-5px';
+
+			var _this=this;
+
+			sCollTest=false;
+			arr=[];
+			var collNum;
+
+			for(i=0;i<aLi.length;i++){
+				var json={
+					l:aLi[i].offsetLeft,
+					r:aLi[i].offsetLeft+aLi[i].offsetWidth,
+					t:aLi[i].offsetTop,
+					b:aLi[i].offsetTop+aLi[i].offsetHeight
+				}
+				arr.push(json);
+			}				
+
+			document.onmousemove=function(ev){
+				result=[];
+				var oEvent=ev||event;
+
+				var l1=_this.offsetLeft;	
+				var r1=_this.offsetLeft+_this.offsetWidth;
+				var t1=_this.offsetTop;
+				var b1=_this.offsetTop+_this.offsetHeight;
+
+				for(i=0;i<arr.length;i++){
+					if(i==thisNum){
+						sCollTest=false;
+						continue;
+					}else{
+						if(r1>arr[i].l&&l1<arr[i].r&&t1<arr[i].b&&b1>arr[i].t){
+							sCollTest=true;	
+							collNum=i;
+							for(j=0;j<arr.length;j++){
+								aLi[j].style.opacity=1;
+								aLi[j].style.filter='alpha(opacity='+100+')';
+							}								
+							aLi[i].style.opacity=0.8;
+							aLi[i].style.filter='alpha(opacity='+70+')';	
+							break;												
+						}else{
+							sCollTest=false;	
+						}
+					}
+				}	
+
+				var l=oldL+(oEvent.clientX-clickX);
+				var t=oldT+(oEvent.clientY-clickY);
+
+				if(l<-oBoxL)l=-oBoxL;
+				if(t<-oBoxT)t=-oBoxT;
+				if(t>winHeight-oBoxT-objH){
+					t=winHeight-oBoxT-objH;
+				}
+				if(l>winWidth-oBoxL-objW){
+					l=winWidth-oBoxL-objW;
+				}
+				_this.style.left=l+'px';
+				_this.style.top=t+'px';
+			};
+
+			document.onmouseup=function(){
+				if(sCollTest==true){
+					oBeColl=aLi[collNum];
+					_this.style.left=getStyle(oBeColl,'left');
+					_this.style.top=getStyle(oBeColl,'top');
+					oBeColl.style.left=oldL+'px';
+					oBeColl.style.top=oldT+'px';
+					oBeColl.style.opacity=1;
+					oBeColl.style.filter='alpha(opacity='+100+')';						
+				}
+
+				if(sCollTest==false){
+					_this.style.left=oldL+'px';
+					_this.style.top=oldT+'px';
+				}
+
+				_this.children[0].children[1].style.display='none';
+				_this.style.zIndex=1;
+				_this.releaseCapture && _this.releaseCapture();
+			    _this.children[0].children[0].style.top='0';
+			    _this.children[0].children[0].style.left='0';	
+				document.onmousemove=null;
+				document.onmouseup=null;			    			
+				return false;
+			};
+			_this.setCapture && _this.setCapture();
+			return false;
+		};
+	}
+}
+window.onload=function(){
+	windowSize();
+	drag('phone-box');
+}
+</script>
+</head>
+<body class="bg">
+<div id="test"></div>
+<div class="wrap">
+	<div class="phone-pos">
+		<ul class="phone-box clr" id="phone_box">
+			<li class="item1">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>
+			</li>
+			<li class="item2">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item3">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item4">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item5">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item6">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item7">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item8">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+			<li class="item9">
+				<div class="column">
+					<span class="ico"></span>
+					<span class="ico-shadow"></span>
+				</div>					
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>
