@@ -1,0 +1,15 @@
+html {overflow-y:scroll;}
+body {margin:0;padding:0; font:12px/1.5 simsun,Arial,sans-serif;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p{padding:0; margin:0;}
+table,td,tr,th{font-size:12px;}
+ol,ul {list-style:none;}
+li{list-style-type:none;}
+img{vertical-align:top;border:0;}
+h1,h2,h3,h4,h5,h6{font-size:inherit; font-weight:normal;}
+address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
+.hx a,.hx em,.fB{font-weight:bold;}
+.clr{min-height:1%;_height:1%;}
+.clr:after{clear:both;content:".";overflow:hidden;height:0;display:block;}
+
+/*首页*/
+body{background:url(ui/bg.jpg) repeat 0 0;}
