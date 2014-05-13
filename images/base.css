@@ -8,6 +8,7 @@ img{vertical-align:top;border:0;}
 h1,h2,h3,h4,h5,h6{font-size:inherit; font-weight:normal;}
 a{color:#333;text-decoration:none;transition-timing-function:ease esae;transition-duration:0.4s, 0.5s;}
 a:hover{color:#047FB3;}
+a:focus{outline-style:none;-moz-outline-style:none;-webkit-outline-style:none;}
 address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
 .hx a,.hx em,.fB{font-weight:bold;}
 .clr{min-height:1%;_height:1%;}
@@ -28,3 +29,4 @@ body{font:12px/1.5 "Microsoft Yahei",Arial,Helvetica,sans-serif;color:#333;backg
 .f-name{padding-top:8px;font-size:16px;color:#333;font-weight:bold;height:24px;line-height:24px;overflow:hidden;}
 .f-time,
 .f-ver{padding-top:3px;color:#999;}
+.f-pic:hover img{opacity:0.9;filter:alpha(opacity=90);}
