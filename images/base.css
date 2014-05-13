@@ -10,6 +10,16 @@ address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
 .hx a,.hx em,.fB{font-weight:bold;}
 .clr{min-height:1%;_height:1%;}
 .clr:after{clear:both;content:".";overflow:hidden;height:0;display:block;}
+.fl{float:left;}
+.fr{float:right;}
+
+/*头部*/
+body{font:12px/1.5 "Microsoft Yahei",Arial,Helvetica,sans-serif;color:#333;background:url("ui/bodybg.jpg") repeat 0 0;}
+.wrap{width:1200px;margin:0 auto;}
+.topbar{height:40px;width:100%;background:url("ui/bg.png") repeat-x 0 0;line-height:38px;font-size:14px;color:#444;}
+.topbar .wrap{height:40px;}
 
 /*首页*/
-body{background:url(ui/bg.jpg) repeat 0 0;}
+.floor{margin-top:30px;width:1200px;overflow:hidden;}
+.f-list{width:110%;}
+.f-list li{float:left;border-bottom:1px solid #F4F4F4;border-right:1px solid #F4F4F4;width:259px;height:259px;padding:10px;background:#FFF;margin-right:26px;}
